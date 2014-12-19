@@ -30,8 +30,7 @@ rm(raw_test, raw_train, raw_subj_test, raw_subj_train,
    raw_labels_test, raw_labels_train)
 
 # read features (columns) names from file
-raw_features <- read.table('UCI HAR Dataset/features.txt',
-                           col.names = c('id', 'name'))
+raw_features <- read.data('features.txt', col.names = c('id', 'name'))
 features_filter <- raw_features$name %like% '.*(mean|std)\\(\\)'
 
 prep_total <- raw_total[, c(TRUE, TRUE, TRUE, features_filter)]
@@ -51,6 +50,4 @@ tidy_data <- aggregate(x = prep_total[, features],
                 FUN = "mean")
 
 # write out result
-write.table(tidy_data, 
-            file = paste(DATA_PATH, "tidy_data.txt", sep = "/"),
-            row.name = FALSE)
+write.table(tidy_data, file = "tidy_data.txt", row.name = FALSE)
